@@ -59,6 +59,7 @@
 
 <script>
     import {reqGetcode, reqVerifycode, reqGetUserBasicInfo} from "../../api/index";
+    import axios from 'axios'
 
     export default {
       name: "Login",
@@ -96,8 +97,9 @@
               this.countTime --;
             },1000)
           }
-
+          // 发送跨域请求
           const result = await reqGetcode('send_sms_code',this.phoneNumber);
+
           if(result){
             console.log(result);
           }
@@ -144,7 +146,7 @@
         }
       },
       updated(){
-        console.log(this.unFillCodeStatus);
+
       }
     }
 </script>

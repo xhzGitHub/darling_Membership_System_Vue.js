@@ -18,454 +18,51 @@
 
             <div class="bottom">
               <form method="post" action="">
-                <div class="inputdiv">
-                  <div class="input_title">
-                    姓名 <span class="must">(必填)</span>
-                  </div>
+                <!--绘制必填项-->
+                <ul>
+                  <li v-for="prop in mustFillData">
+                    <div class="inputdiv">
+                      <div class="input_title">
+                        {{prop.title}} <span class="must" v-if="prop.ifRequire">(必填)</span>
+                      </div>
 
-                  <input class="input_content" id="input_name" type="text" name ="fName" placeholder="请输入姓名">
+                      <input class="input_content" id="input_name" v-model="prop.datas.value" name ="fName" :placeholder="prop.placeholder">
+                    </div>
+                  </li>
+                </ul>
 
-                </div>
-
-                <div class="inputdiv">
-                  <div class="input_title">
-                    生日
-                    <span class="must">(必填)</span>
-                    <!--<span class="optional">(选填)</span>-->
-                  </div>
-
-                  <table class="ui-date-bg" style="width: 100%;">
-                    <tr>
-                      <td class="ui-date-slectdate " >
-                        <input id="nowDate" value="" class="ui-date-scroll ui-date-txt ui-date-input input_content"
-                               name ="fBirthday" placeholder="请输入生日" readonly/>
-                        <!--<span id="nowDate" class="glyphicon glyphicon-chevron-down" aria-hidden="true"></span>-->
-                      </td>
-                    </tr>
-                  </table>
-
-                  <!--<input class="input_content" type="text" name ="birthday" >-->
-                </div>
-
-                <div class="inputdiv">
-                  <div class="input_title">
-                    上装尺码
-                    <!--<span class="must">(必填)</span>-->
-                    <span class="optional">(选填)</span>
-                  </div>
-
-                  <!--<div class="form-item item-line">-->
-                  <!--<div class="pc-box">-->
-                  <!--<input type="hidden" name="bank_id" id="bankId" value="">-->
-                  <!--<input type="text" id="showBank" class="input_content input_topsize" name ="fTopsSize" placeholder="请输入上装尺码">-->
-                  <!--</div>-->
-                  <!--</div>-->
-
-                  <input class="input_content" id="input_topsize" type="text" name ="top_size" placeholder="请输入上装尺码">
-                </div>
-
-                <div class="inputdiv" id="bottom_size">
-                  <div class="input_title">
-                    下装尺码
-                    <!--<span class="must">(必填)</span>-->
-                    <span class="optional">(选填)</span>
-                  </div>
-
-                  <input type="text" id="input_bottomsize" class="input_content input_bottomsize" name ="fBottomsSize" placeholder="请输入下装尺码">
-
-                </div>
-
-                <div class="inputdiv">
-                  <div class="input_title">
-                    穿鞋尺码
-                    <span class="optional">(选填)</span>
-                    <!--<span class="must">(必填)</span>-->
-                  </div>
-
-                  <input class="input_content" id="input_shoesize" type="text" name ="fShoesSize" placeholder="请输入穿鞋尺码">
-                </div>
-
-                <div class="inputdiv" id="address">
-                  <div class="input_title">
-                    地址
-                    <span class="optional">(选填)</span>
-                  </div>
-
-                  <input class="input_content" id="input_address" type="text" name ="fAddress" placeholder="请输入常住地址">
-                </div>
-
-                <div id="111" class="research_entrance">
+                <div id="111" class="research_entrance" ref="research_entrance" @click="showResearch">
                   填写调研问卷
                 </div>
 
-                <div class="research_content">
-                  <div class="research_fill">
-                    <div class="question">
-                      1. 选择您的突出体型:
-                    </div>
-                    <div style="margin-bottom: 5vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fProminentBody" value="肩">
-                        <span class="demo--answer"></span>肩
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fProminentBody" value="胸">
-                        <span class="demo--answer"></span>胸
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fProminentBody" value="腰">
-                        <span class="demo--answer"></span>腰
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fProminentBody" value="腹">
-                        <span class="demo--answer"></span>腹
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fProminentBody" value="臀">
-                        <span class="demo--answer"></span>臀
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fProminentBody" value="腿">
-                        <span class="demo--answer"></span>腿
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fProminentBody" value="大臂">
-                        <span class="demo--answer"></span>大臂
-                      </label>
-                      <label class="options_block">
-                        其它
-                        <input class="else_input" type="text" name="fProminentBody" value="">
-                      </label>
-                    </div>
-                  </div>
+                <ul class="research_content" v-show="ifResearch">
 
-                  <div class="research_fill">
-                    <div class="question">
-                      2. 选择您的穿鞋风格
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fShoesPreference" value="高跟鞋">
-                        <span class="demo--answer"></span>高跟鞋
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fShoesPreference" value="中跟鞋">
-                        <span class="demo--answer"></span>中跟鞋
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fShoesPreference" value="平跟鞋">
-                        <span class="demo--answer"></span>平跟鞋
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fShoesPreference" value="运动鞋">
-                        <span class="demo--answer"></span>运动鞋
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fShoesPreference" value="凉鞋">
-                        <span class="demo--answer"></span>凉鞋
-                      </label>
-                      <label class="options_block">
-                        其它
-                        <input class="else_input" type="text" name="shoes_preference" value="">
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      3. 选择您的穿衣风格
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingStyle" value="淑女风">
-                        <span class="demo--answer"></span>淑女风
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingStyle" value="休闲风">
-                        <span class="demo--answer"></span>休闲风
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingStyle" value="优雅风">
-                        <span class="demo--answer"></span>优雅风
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingStyle" value="简约风">
-                        <span class="demo--answer"></span>简约风
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingStyle" value="中性风">
-                        <span class="demo--answer"></span>中性风
-                      </label>
-                      <label class="options_block">
-                        其它
-                        <input class="else_input" type="text" name="fDressingStyle" value="">
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      4. 选择您的常用穿衣场合
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingOccasion" value="办公">
-                        <span class="demo--answer"></span>办公
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingOccasion" value="度假">
-                        <span class="demo--answer"></span>度假
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingOccasion" value="约会">
-                        <span class="demo--answer"></span>约会
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingOccasion" value="聚餐">
-                        <span class="demo--answer"></span>聚餐
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fDressingOccasion" value="应酬">
-                        <span class="demo--answer"></span>应酬
-                      </label>
-                      <label class="options_block">
-                        <!--<input class="demo&#45;&#45;radio" type="radio" name="prominent_body_type" value="else">-->
-                        <!--<span class="demo&#45;&#45;answer"></span>-->
-                        其它
-                        <input class="else_input" type="text" name="fDressingOccasion" value="">
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      5. 选择您的风格喜欢
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fStylePreference" value="淑女风">
-                        <span class="demo--answer"></span>淑女风
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fStylePreference" value="通勤风">
-                        <span class="demo--answer"></span>通勤风
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fStylePreference" value="优雅风">
-                        <span class="demo--answer"></span>优雅风
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fStylePreference" value="简约风">
-                        <span class="demo--answer"></span>简约风
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fStylePreference" value="中性风">
-                        <span class="demo--answer"></span>中性风
-                      </label>
-                      <label class="options_block">
-                        其它
-                        <input class="else_input" type="text" name="fStylePreference" value="">
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      6. 选择您的品类喜好
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fCategoryPreference" value="裙装">
-                        <span class="demo--answer"></span>裙装
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fCategoryPreference" value="裤装">
-                        <span class="demo--answer"></span>裤装
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fCategoryPreference" value="风衣">
-                        <span class="demo--answer"></span>风衣
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fCategoryPreference" value="衬衫">
-                        <span class="demo--answer"></span>衬衫
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fCategoryPreference" value="小西装">
-                        <span class="demo--answer"></span>小西装
-                      </label>
-                      <label class="options_block">
-                        其它
-                        <input class="else_input" type="text" name="fCategoryPreference" value="">
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      7. 选择您的颜色喜好
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fColorPreference" value="百搭(黑/白)">
-                        <span class="demo--answer"></span>百搭(黑/白)
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fColorPreference" value="中色(灰/咖)">
-                        <span class="demo--answer"></span>中色(灰/咖)
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fColorPreference" value="冷色(蓝/紫)">
-                        <span class="demo--answer"></span>冷色(蓝/紫)
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fColorPreference" value="暖色(红/黄)">
-                        <span class="demo--answer"></span>暖色(红/黄)
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      8. 选择您的花纹喜好
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fPatternPreference" value="纯色">
-                        <span class="demo--answer"></span>纯色
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fPatternPreference" value="条纹">
-                        <span class="demo--answer"></span>条纹
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fPatternPreference" value="格子">
-                        <span class="demo--answer"></span>格子
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fPatternPreference" value="印花">
-                        <span class="demo--answer"></span>印花
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fPatternPreference" value="蕾丝">
-                        <span class="demo--answer"></span>蕾丝
-                      </label>
-                      <label class="options_block">
-                        其它
-                        <input class="else_input" type="text" name="fPatternPreference" value="">
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      9. 选择您的配饰喜好
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fAccessoriesPreference" value="帽子">
-                        <span class="demo--answer"></span>帽子
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fAccessoriesPreference" value="首饰">
-                        <span class="demo--answer"></span>首饰
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fAccessoriesPreference" value="围巾">
-                        <span class="demo--answer"></span>围巾
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fAccessoriesPreference" value="包包">
-                        <span class="demo--answer"></span>包包
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fAccessoriesPreference" value="皮带">
-                        <span class="demo--answer"></span>皮带
-                      </label>
-                      <label class="options_block">
-                        其它
-                        <input class="else_input" type="text" name="fAccessoriesPreference" value="">
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      10. 选择您的购物喜好
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fShoppingPreference" value="整套搭配购买">
-                        <span class="demo--answer"></span>整套搭配购买
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fShoppingPreference" value="非整套搭配购买">
-                        <span class="demo--answer"></span>非整套搭配购买
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      11. [需求]上门服务整理衣橱
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fWardrobeChoices" value="非常愿意">
-                        <span class="demo--answer"></span>非常愿意
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fWardrobeChoices" value="考虑一下">
-                        <span class="demo--answer"></span>考虑一下
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fWardrobeChoices" value="残忍拒绝">
-                        <span class="demo--answer"></span>残忍拒绝
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      12. [需求]专业搭配师陪同购物
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fPurchaseChoices" value="非常愿意">
-                        <span class="demo--answer"></span>非常愿意
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fPurchaseChoices" value="考虑一下">
-                        <span class="demo--answer"></span>考虑一下
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fPurchaseChoices" value="残忍拒绝">
-                        <span class="demo--answer"></span>残忍拒绝
-                      </label>
-                    </div>
-                  </div>
-                  <div class="research_fill">
-                    <div class="question">
-                      13. [需求]希望开展以下哪种线下沙龙
-                    </div>
-                    <div name="" class="options" style="margin-bottom: 10vh;">
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fSalonChoices" value="服装搭配">
-                        <span class="demo--answer"></span>服装搭配
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fSalonChoices" value="化妆美发">
-                        <span class="demo--answer"></span>化妆美发
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fSalonChoices" value="插花茶艺">
-                        <span class="demo--answer"></span>插花茶艺
-                      </label>
-                      <label class="options">
-                        <input class="demo--radio" type="radio" name="fSalonChoices" value="读书会">
-                        <span class="demo--answer"></span>读书会
-                      </label>
-                      <label class="options_block">
-                        其它
-                        <input class="else_input" type="text" name="fSalonChoices" value="">
-                      </label>
-                    </div>
-                  </div>
-                </div>
+                    <li v-for="props in researchContent">
+                      <div class="research_fill">
+                        <div class="question">
+                          {{props.title}}
+                        </div>
+                        <ul style="margin-bottom: 5vh;">
+                          <li v-for="prop in props.options">
+                            <label class="options">
+                              <input class="demo--radio" type="radio" :name="props.name" :value="prop" v-model="props.value">
+                              <span class="demo--answer"></span>{{prop}}
+                            </label>
+                          </li>
+                          <!--用于清除浮动-->
+                          <p class="clear"></p>
+                          <label class="options_block">
+                            其它
+                            <input class="else_input" type="text" name="fProminentBody">
+                          </label>
 
-                <div class="inputdiv" style="height: 12vh">
+                        </ul>
+                      </div>
+                    </li>
 
-                </div>
+                </ul>
+
+                <div class="inputdiv" style="height: 12vh"></div>
               </form>
             </div>
 
@@ -473,7 +70,7 @@
         </div>
       </div>
       <div class="save">
-        <button class="savebtn">进入会员页面</button>
+        <button class="savebtn" @click.prevent="postUserData">进入会员页面</button>
       </div>
 
     </div>
@@ -482,12 +79,251 @@
 </template>
 
 <script>
+    import {reqUpdateUserInfo} from "../../api";
+
     export default {
-        name: "Login"
+      name: "Login",
+
+      data(){
+        return {
+          // 必选栏
+          mustFillData: [
+            {
+              title: '姓名',
+              ifRequire: true,    // 是否必选
+              placeholder: '请输入姓名',
+              datas: {
+                text: 'fName',
+                value: ''
+              }
+            },
+            {
+              title: '生日',
+              ifRequire: true,
+              placeholder: '请输入生日',
+              datas: {
+                text: 'fBirthday',
+                value: ''
+              }
+            },
+            {
+              title: '上装尺码',
+              ifRequire: false,
+              placeholder: '请输入上装尺码',
+              datas: {
+                text: 'fTopsSize',
+                value: ''
+              }
+            },
+            {
+              title: '下装尺码',
+              ifRequire: false,
+              placeholder: '请输入下装尺码',
+              datas: {
+                text: 'fBottomsSize',
+                value: ''
+              }
+            },
+            {
+              title: '穿鞋尺码',
+              ifRequire: false,
+              placeholder: '请输入穿鞋尺码',
+              datas: {
+                text: 'fShoesSize',
+                value: ''
+              }
+            },
+            {
+              title: '地址',
+              ifRequire: false,
+              placeholder: '请输入地址',
+              datas: {
+                text: 'fAddress',
+                value: ''
+              }
+            }
+          ],
+
+          ifResearch: false,  // 是否显示调研问卷
+
+          researchContent: [
+            {
+              title: '1. 选择您的突出体型:',
+              name: 'fProminentBody',
+              value: '',
+              options: [
+                '肩', '胸', '胸', '腹', '臀', '腿', '大臂'
+              ]
+            },
+            {
+              title: '2. 选择您的穿鞋风格:',
+              name: 'fShoesPreference',
+              value: '',
+              options: [
+                '高跟鞋', '中跟鞋', '平跟鞋', '运动鞋', '凉鞋'
+              ]
+            },
+            {
+              title: '3. 选择您的穿衣风格:',
+              name: 'fDressingStyle',
+              value: '',
+              options: [
+                '淑女风', '休闲风', '优雅风', '简约风', '中性风'
+              ]
+            },
+            {
+              title: '4. 选择您的常用穿衣场合:',
+              name: 'fDressingOccasion',
+              value: '',
+              options: [
+                '办公', '度假', '约会', '聚餐', '应酬'
+              ]
+            },
+            {
+              title: '5. 选择您的风格喜欢:',
+              name: 'fStylePreference',
+              value: '',
+              options: [
+                '淑女风', '通勤风', '优雅风', '简约风', '中性风'
+              ]
+            },
+            {
+              title: '6. 选择您的品类喜好:',
+              name: 'fCategoryPreference',
+              value: '',
+              options: [
+                '裙装', '裤装', '风衣', '衬衫', '小西装'
+              ]
+            },
+            {
+              title: '7. 选择您的颜色喜好:',
+              name: 'fColorPreference',
+              value: '',
+              options: [
+                '百搭(黑/白)', '中色(灰/咖)', '冷色(蓝/紫)', '暖色(红/黄)'
+              ]
+            },
+            {
+              title: '8. 选择您的花纹喜好:',
+              name: 'fPatternPreference',
+              value: '',
+              options: [
+                '纯色', '条纹', '格子', '印花', '蕾丝'
+              ]
+            },
+            {
+              title: '9. 选择您的配饰喜好:',
+              name: 'fAccessoriesPreference',
+              value: '',
+              options: [
+                '帽子', '首饰', '围巾', '包包', '皮带'
+              ]
+            },
+            {
+              title: '10. 选择您的购物喜好:',
+              name: 'fShoppingPreference',
+              value: '',
+              options: [
+                '整套搭配购买', '非整套搭配购买'
+              ]
+            },
+            {
+              title: '11. [需求]上门服务整理衣橱:',
+              name: 'fWardrobeChoices',
+              value: '',
+              options: [
+                '非常愿意', '考虑一下', '残忍拒绝'
+              ]
+            },
+            {
+              title: '12. [需求]专业搭配师陪同购物:',
+              name: 'fPurchaseChoices',
+              value: '',
+              options: [
+                '非常愿意', '考虑一下', '残忍拒绝'
+              ]
+            },
+            {
+              title: '13. [需求]希望开展以下哪种线下沙龙:',
+              name: 'fSalonChoices',
+              value: '',
+              options: [
+                '服装搭配', '化妆美发', '插花茶艺', '读书会'
+              ]
+            },
+          ],
+        }
+      },
+      methods: {
+        showResearch(){
+          this.ifResearch = ! this.ifResearch;
+          // 由于research内容还未生成，如果不延迟操作，是无法立即进行滚动的
+          setTimeout(()=>{
+            window.scrollTo(0,730);
+          },100)
+        },
+
+        async postUserData(){
+          // 将所有要上传的数据进行封装，并上传
+
+          // basic_info 是非交互数据
+          let userData = {},
+              basic_info = {
+                query_type: '3',
+                membership_query_type: 'update_membership_basic_info',
+                openid: 'oDSI91icP6QsWJkFZalVPFAXZgXU',
+                fFaceType: '',
+                fBodyType: '',
+                fSkinColor: '',
+                fHairColor: '',
+                fHeight: '',
+                fWeight: '',
+                fChooseFaceType: '',
+                fChooseBodyType: '',
+              };
+
+          // 遍历储存如对象
+          for(var prop in basic_info){
+            if(!userData[prop]){
+              userData[prop] = basic_info[prop];
+            }
+          }
+          // 遍历储存 交互数据（即页面中需要用户填写的）
+          if(((this.mustFillData)[0].datas.value == '') || ((this.mustFillData)[1].datas.value == '')){
+            console.log('failed');
+            return false;
+          }else{
+
+            for(var prop in this.mustFillData){
+              if(!userData[this.mustFillData[prop].datas.text]){
+                userData[this.mustFillData[prop].datas.text] = this.mustFillData[prop].datas.value;
+              }
+            }
+
+            for(var prop in this.researchContent){
+              if(!userData[this.researchContent[prop].name]){
+                userData[this.researchContent[prop].name] = this.researchContent[prop].value;
+              }
+            }
+            // 发送请求提交数据
+            let result = await reqUpdateUserInfo(userData);
+            if(result.status == 'success'){
+              // 跳转页面
+              console.log(result);
+            }
+          }
+        }
+      }
     }
 </script>
 
 <style scoped>
+  *{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
   #inputinfo{
     width: 90%;
     margin: 0 auto;
@@ -617,7 +453,7 @@
   }
 
   .research_content{
-    display: none;
+    /*display: none;*/
   }
 
   .question{
@@ -632,7 +468,14 @@
     font-family: "Microsoft YaHei";
     font-weight: normal;
     font-size: 2.5vh;
+    float: left;
     color:#868686;
+  }
+
+  .clear{
+    clear: both;
+    height: 0px;
+    width: 0px;
   }
 
   .options_block{

@@ -24,6 +24,9 @@ export const reqVerifycode = (query_type, membership_query_type, tel, sms_code, 
   'POST'
 )
 // 上传用户信息
+export const reqUpdateUserInfo = (data) => ajax(
+  `${base_url}`,data, 'POST')
+
 // 获取用户基本信息
 export const reqGetUserBasicInfo = (membership_query_type) => ajax(
   `${base_url}?query_type=3&membership_query_type=${membership_query_type}&openid=oDSI91icP6QsWJkFZalVPFAXZgXU`,
