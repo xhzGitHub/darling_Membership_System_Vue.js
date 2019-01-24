@@ -5,6 +5,7 @@
 </template>
 
 <script>
+  import './pages/bodytypeinfo/images/iconfont/iconfont.css'
 
 export default {
   name: 'App',

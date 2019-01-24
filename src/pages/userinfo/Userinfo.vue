@@ -305,12 +305,15 @@
                 userData[this.researchContent[prop].name] = this.researchContent[prop].value;
               }
             }
+
             // 发送请求提交数据
             let result = await reqUpdateUserInfo(userData);
             if(result.status == 'success'){
               // 跳转页面
+              this.$router.replace('/home');
               console.log(result);
             }
+
           }
         }
       }
